@@ -1,0 +1,73 @@
+
+<form class="jumbotron" name="formStyle" method="POST" id="formStyle">
+    <div class="form-group col-md-5">
+      <label for="height" class="font-weight-bold">Enter Height</label>
+      <input type="number" class="form-control" id="height" name ="height" oninput="validateHeight(this)" placeholder="Height(in meters)"  step=any required>
+      
+    </div>
+    <div class="form-group col-md-5">
+      <label for="weight" class="font-weight-bold">Enter Weight</label>
+      <input type="number" class="form-control" id="weight" name="weight" oninput="validateWeight(this)" placeholder="Weight(in kgs)"  step=any  required>
+  
+    </div>
+    <div class="form-group col-md-2">
+    <input type="submit" class="btn btn-success" value="Calculate">
+  </div>
+</form>
+
+<div class="jumbotron" id="displayValue" style="display: none">
+  <label class="font-weight-bold"> BMI Value : </label>
+  <p id="bmiResult"></p>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+  function validateHeight(input) 
+  {
+    var x = document.getElementById('height').value;
+    if (x <= 0) {
+      input.setCustomValidity('Height must be greater than zero.');
+    } else {
+      input.setCustomValidity('');
+    }
+  }
+
+  function validateWeight(input) 
+  {
+    var y = document.getElementById('weight').value;
+    if (y <= 0) {
+      input.setCustomValidity('Weight must be greater than zero.');
+    } else {
+      input.setCustomValidity('');
+    }
+  }
+
+  $(document).ready(function() 
+  {
+    $("#formStyle").submit(function (e) {
+
+      e.preventDefault();
+      $.ajax({
+          url: "http://localhost:1338/calculateBMI073",
+          type: "POST",
+          data: {
+            "height": $("#height").val(),
+            "weight": $("#weight").val()
+          },
+          crossDomain:true,
+          success: function (result) {
+            
+            $("#displayValue").css("display","block");
+            $("#bmiResult").html(result.bmiValue);
+
+          }
+      });
+      e.preventDefault();
+    });
+  });
+</script>
+
+
+
