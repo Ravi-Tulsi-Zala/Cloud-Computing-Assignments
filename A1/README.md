@@ -6,11 +6,11 @@ BMI calculator is a [Sails v1](https://sailsjs.com) application to calculate the
 ### How to Run Application
 + In A1 Directory run the below command
 
-```sails lift --port 1338```
+    ```sails lift --port 1338```
 
 + Change the directory to client which is A1/client and run the below command
 
-```sails lift --port 1337```
+    ```sails lift --port 1337```
 
 
 ### Links
